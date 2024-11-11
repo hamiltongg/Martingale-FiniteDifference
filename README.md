@@ -15,3 +15,5 @@ How to Build and Solve Continuous-time Heterogeneous Agents Models in Asset Pric
 (7) NumericalExpectation: A function that approximates the expectation presented in the wealth of the more risk-averse agent using Gaussian quadrature.
 
 (8) PDEwithoutBoundaries: It solves the PDE of stock price without considering boundary conditions.
+
+(9) Convergence_Stability_Monotonicity: It plot convergence, stability, and monotonicity of the numerical method.
