@@ -1,4 +1,5 @@
 %{
+P1
 The Implicit Method
 ==========================================
 Application: PDE of riksy asset (St) of Wang(1996)'s paper
@@ -13,11 +14,9 @@ where Y ~ GMB
 
 ----------------------------
 Author: Hamilton Galindo Gil
-Date:   2023 (March, April)
+Date:   2023 (March, April), 2024 (Nov)
 Paper base: Wang(1996) 
 ----------------------------
-Book: Heterogeneous Agents in Asset Pricing
-Chapter: XX
 %}
 %=========================================
 clear; clc;
@@ -197,9 +196,14 @@ for n=1:maxit
         s = S';            % the "new initial guess"
 
     %% STEP-5.6: The optimal value function
-        %We use the "Absolute-value norm" 
+        %We use the "sup-norm" 
         %We can use others: e.g., Euclidean norm        
         dist(n) = max(abs(Schange));
+
+        %% Stability
+        imax = I+1;
+        error(n) = (1/(imax*deltat))*sqrt(sum(Schange.^2));
+
         if dist(n)<crit %crit=10^(-6)
             disp('Value Function Converged, Iteration = ')
             disp(n)
@@ -207,7 +211,8 @@ for n=1:maxit
         end
         
     % To know in what "iteration" we are
-    disp(n)                  
+    disp(n)
+
 end
 toc;
 
@@ -232,15 +237,15 @@ gsYt = [];
 A = ( (b/2)^(gamma1-1) )/(1 + (sqrt(b)/2)^(gamma1));
 for i = 1:length(Y)
 Yt = Y(i);
-n = 401;
-h = (T - t)/(n-1);
-    for ii = 1:n
+n1 = 401;
+h = (T - t)/(n1-1);
+    for ii = 1:n1
         s = t + (ii-1)*h;
         st = s-t;
         gs(ii)    = h_fun(st,b,mu,sigma,gamma1,Yt);
         betas(ii) = exp(-rho*s);
     end
-omega_tilde = [h/2,h*ones(1,n-2) ,h/2];    
+omega_tilde = [h/2,h*ones(1,n1-2) ,h/2];    
 gsYt(i) = sum(omega_tilde.*betas.*gs); 
 end
 W1 = (A./m).*gsYt; % wealth of agent 1
