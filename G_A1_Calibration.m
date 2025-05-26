@@ -3,6 +3,7 @@
 % Started (Mar 2021) - Updated (Feb,Mar,April 2023, July 2024)
 % Two-agent model
 % Martingale approach
+% Before running this code, run "G_Sensitivity_Analysis.m"
 %==========================================================================
 clear;
 close all;
